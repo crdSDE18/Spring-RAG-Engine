@@ -1,0 +1,21 @@
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Build output
+out/
+target/
+build/
+
+# Compiled class files
+*.class
+
+# Logs
+*.log
+
+# Maven
+.mvn/
+dependency-reduced-pom.xml
+.DS_Store
