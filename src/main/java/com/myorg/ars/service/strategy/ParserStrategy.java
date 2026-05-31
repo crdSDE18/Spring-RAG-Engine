@@ -4,5 +4,10 @@ import com.myorg.ars.service.model.Document;
 
 public interface ParserStrategy {
 
-    void parse(Document document);
+    /**
+     * This method abstracts the parsing functionality that will be used by different types of parsers for file content types
+     * @param document
+     * @return
+     */
+    String parse(Document document);
 }
