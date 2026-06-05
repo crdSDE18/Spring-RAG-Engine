@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: spring-rag-engine
+
+chunking:
+  size: 550
+  overlap: 50
+  keepSeparator: true
+  minChunkSize: 10
+  maxNumChunks: 100

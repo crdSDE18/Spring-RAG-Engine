@@ -1,6 +1,7 @@
 package com.myorg.ars.service.strategy;
 
-import com.myorg.ars.service.model.Document;
+import com.myorg.ars.service.strategy.model.DocumentRequest;
+import com.myorg.ars.service.strategy.model.ParsedDocument;
 
 public interface ParserStrategy {
     /**
@@ -9,5 +10,5 @@ public interface ParserStrategy {
      * @return
      */
     boolean supports(String contentType);
-    String parse(Document document);
+    ParsedDocument parse(DocumentRequest documentRequest);
 }

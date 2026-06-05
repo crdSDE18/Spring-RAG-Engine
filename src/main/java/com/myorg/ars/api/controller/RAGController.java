@@ -1,7 +1,7 @@
 package com.myorg.ars.api.controller;
 
 import com.myorg.ars.service.DocumentOrchestrator;
-import com.myorg.ars.service.model.Document;
+import com.myorg.ars.service.strategy.model.DocumentRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,11 +31,11 @@ public class RAGController {
             return  ResponseEntity.badRequest().body("Uploaded file is empty");
         }
         //TODO design how to not move the actual document in to service domain.
-        Document document = new Document(UUID.randomUUID(),doc);
+        DocumentRequest documentRequest = new DocumentRequest(UUID.randomUUID(),doc);
         log.info("Sending File to Decider Service");
 
         try {
-            service.processDocument(document);
+            service.processDocument(documentRequest);
         }
         catch (Exception e){
             log.error("Failed while sending to decider service",e);
@@ -43,7 +43,7 @@ public class RAGController {
 
         }
         //TODO implement further endpoints, as this will eventually be async processing
-        return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", document.jobID().toString())
+        return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", documentRequest.jobID().toString())
                 .body("File Successfully received");
     }
 }

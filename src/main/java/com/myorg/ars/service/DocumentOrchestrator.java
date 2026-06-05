@@ -1,12 +1,12 @@
 package com.myorg.ars.service;
 
-import com.myorg.ars.service.model.Document;
+import com.myorg.ars.service.strategy.model.DocumentRequest;
 import com.myorg.ars.service.strategy.ParserStrategy;
+import com.myorg.ars.service.strategy.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.util.List;
 
 @Slf4j
@@ -15,12 +15,12 @@ import java.util.List;
 public class DocumentOrchestrator {
     private final List<ParserStrategy> parserStrategies;
 
-    public Document processDocument(Document document){
+    public DocumentRequest processDocument(DocumentRequest documentRequest){
         //Step 1: decide the parser
-        ParserStrategy parserStrategy = parserDecider(document.doc().getContentType());
+        ParserStrategy parserStrategy = parserDecider(documentRequest.doc().getContentType());
 
         //Step 2: Parse the document
-        String parsedDocument = parserStrategy.parse(document);
+        ParsedDocument parsedDocument = parserStrategy.parse(documentRequest);
 
         //Step 3: Chunk document string to smaller chunks to be embedded
 
