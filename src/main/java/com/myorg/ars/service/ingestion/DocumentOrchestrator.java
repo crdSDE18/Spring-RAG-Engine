@@ -1,5 +1,6 @@
-package com.myorg.ars.service;
+package com.myorg.ars.service.ingestion;
 
+import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.DocumentRequest;
 import com.myorg.ars.service.strategy.ParserStrategy;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DocumentOrchestrator {
     private final List<ParserStrategy> parserStrategies;
+    private final RagChunkService chunkService;
 
     public DocumentRequest processDocument(DocumentRequest documentRequest){
         //Step 1: decide the parser
@@ -23,7 +25,7 @@ public class DocumentOrchestrator {
         ParsedDocument parsedDocument = parserStrategy.parse(documentRequest);
 
         //Step 3: Chunk document string to smaller chunks to be embedded
-
+        List<DocumentChunk> documentChunks = chunkService.chunk(parsedDocument);
 
         return null;
     }
