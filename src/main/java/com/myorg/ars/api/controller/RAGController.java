@@ -35,7 +35,7 @@ public class RAGController {
         log.info("Sending File to Decider Service");
 
         try {
-            service.process(document);
+            service.processDocument(document);
         }
         catch (Exception e){
             log.error("Failed while sending to decider service",e);
@@ -43,7 +43,7 @@ public class RAGController {
 
         }
         //TODO implement further endpoints, as this will eventually be async processing
-        return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", document.getJobID().toString())
+        return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", document.jobID().toString())
                 .body("File Successfully received");
     }
 }
