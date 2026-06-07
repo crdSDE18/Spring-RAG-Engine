@@ -1,7 +1,8 @@
-package com.myorg.ars.service.strategy;
+package com.myorg.ars.service.strategy.parser;
 
 import com.myorg.ars.service.strategy.model.DocumentRequest;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
+import com.myorg.ars.service.strategy.parser.ParserStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;
@@ -10,10 +11,8 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.lang.management.ManagementPermission;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @Component

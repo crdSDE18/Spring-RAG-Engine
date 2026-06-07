@@ -2,7 +2,7 @@ package com.myorg.ars.service.ingestion;
 
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.DocumentRequest;
-import com.myorg.ars.service.strategy.ParserStrategy;
+import com.myorg.ars.service.strategy.parser.ParserStrategy;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
