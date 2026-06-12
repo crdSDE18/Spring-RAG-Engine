@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.myorg.ars</groupId>
-    <artifactId>ai-retrival-system</artifactId>
+    <artifactId>spring-rag-engine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <parent>
@@ -37,6 +37,23 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.7</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-model -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-model</artifactId>
+            <version>2.0.0-M8</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
