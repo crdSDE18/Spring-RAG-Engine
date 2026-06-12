@@ -2,7 +2,6 @@ package com.myorg.ars.service.strategy.parser;
 
 import com.myorg.ars.service.strategy.model.DocumentRequest;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
-import com.myorg.ars.service.strategy.parser.ParserStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;

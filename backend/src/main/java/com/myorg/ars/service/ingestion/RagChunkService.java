@@ -1,18 +1,13 @@
 package com.myorg.ars.service.ingestion;
 
-import com.myorg.ars.config.ChunkingConfig;
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j

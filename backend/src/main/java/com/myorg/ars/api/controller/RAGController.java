@@ -46,6 +46,6 @@ public class RAGController {
 
         //TODO implement further endpoints, as this will eventually be async processing
         return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", documentRequest.jobID().toString())
-                .body("File Successfully received");
+                .body("File Successfully saved with job-id in header");
     }
 }
