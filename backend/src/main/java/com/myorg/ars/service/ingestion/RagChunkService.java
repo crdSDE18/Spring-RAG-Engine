@@ -18,6 +18,7 @@ public class RagChunkService {
     private final TokenTextSplitter tokenTextSplitter;
 
     public List<DocumentChunk> chunk(ParsedDocument parsedDocument){
+        //TODO null check
 
         List<Document> documents;
        try {
