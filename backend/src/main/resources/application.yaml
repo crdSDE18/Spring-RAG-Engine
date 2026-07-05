@@ -1,6 +1,12 @@
 spring:
   application:
     name: spring-rag-engine
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      embedding:
+        options:
+          model: nomic-embed-text
 rag:
   chunking-config:
     size: 600

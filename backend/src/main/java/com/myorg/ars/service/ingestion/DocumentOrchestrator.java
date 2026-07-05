@@ -2,6 +2,7 @@ package com.myorg.ars.service.ingestion;
 
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.DocumentRequest;
+import com.myorg.ars.service.strategy.model.EmbeddedChunk;
 import com.myorg.ars.service.strategy.parser.ParserStrategy;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,10 @@ public class DocumentOrchestrator {
     private final List<ParserStrategy> parserStrategies;
     private final RagChunkService chunkService;
 
-    public DocumentRequest processDocument(DocumentRequest documentRequest){
+    private final EmbedService embedService;
+
+    public void processDocument(DocumentRequest documentRequest){
+        //TODO remove void and add a record type for testing
         //Step 1: decide the parser
         ParserStrategy parserStrategy = parserDecider(documentRequest.doc().getContentType());
 
@@ -27,7 +31,9 @@ public class DocumentOrchestrator {
         //Step 3: Chunk document string to smaller chunks to be embedded
         List<DocumentChunk> documentChunks = chunkService.chunk(parsedDocument);
 
-        return null;
+        //Step 4: Embed chunked documents
+        List<EmbeddedChunk> embeddedChunks = embedService.embedDocument(documentChunks);
+
     }
 
     private ParserStrategy parserDecider(String mimeType){
@@ -36,7 +42,6 @@ public class DocumentOrchestrator {
                 .filter(parserStrategy -> parserStrategy.supports(mimeType))
                 .findFirst().orElseThrow(() -> new UnsupportedOperationException(
                         "Unsupported mime type: " + mimeType));
-
 
     }
 }

@@ -27,6 +27,8 @@ public class PdfParser implements ParserStrategy {
 
     @Override
     public ParsedDocument parse(DocumentRequest documentRequest) {
+
+        //TODO revist resource management here
         try{
             PDDocument pdDocument = Loader.loadPDF(documentRequest.doc().getBytes());
 
