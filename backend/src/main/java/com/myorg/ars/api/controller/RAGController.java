@@ -33,7 +33,7 @@ public class RAGController {
 
         //TODO design how to not move the actual document in to service domain.
         DocumentRequest documentRequest = new DocumentRequest(UUID.randomUUID(),doc);
-        log.info("Sending File to Decider Service");
+        log.info("Sending File to orchestrator");
 
         try {
             service.processDocument(documentRequest);

@@ -2,7 +2,7 @@ package com.myorg.ars.service.ingestion;
 
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.DocumentRequest;
-import com.myorg.ars.service.strategy.model.EmbeddedDocument;
+import com.myorg.ars.service.strategy.model.EmbeddedChunk;
 import com.myorg.ars.service.strategy.parser.ParserStrategy;
 import com.myorg.ars.service.strategy.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +32,7 @@ public class DocumentOrchestrator {
         List<DocumentChunk> documentChunks = chunkService.chunk(parsedDocument);
 
         //Step 4: Embed chunked documents
-        List<EmbeddedDocument> embeddedDocuments = embedService.embedDocument(documentChunks);
-
+        List<EmbeddedChunk> embeddedChunks = embedService.embedDocument(documentChunks);
 
     }
 
@@ -43,7 +42,6 @@ public class DocumentOrchestrator {
                 .filter(parserStrategy -> parserStrategy.supports(mimeType))
                 .findFirst().orElseThrow(() -> new UnsupportedOperationException(
                         "Unsupported mime type: " + mimeType));
-
 
     }
 }
