@@ -1,6 +1,7 @@
 package com.myorg.ars.service.ingestion;
 
 
+import com.myorg.ars.data.repository.jpa.EmbeddingChunkRepositoryImpl;
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.EmbeddedChunk;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ public class EmbedService {
 
     private final EmbeddingModel embeddingModel;
 
+    private final EmbeddingChunkRepositoryImpl embeddingChunkimplRepository;
+
     public List<EmbeddedChunk> embedDocument(List<DocumentChunk> documentChunks){
         Assert.notNull(documentChunks,"Chunk documents cannot be null");
 
@@ -29,7 +32,7 @@ public class EmbedService {
                 float[] vector = embeddingModel.embed(chunk.chunkText());
 
                 EmbeddedChunk document =
-                        new EmbeddedChunk(chunk.chunkId(),chunk.metadata(),vector);
+                        new EmbeddedChunk(chunk.chunkId(),chunk.metadata(),vector, chunk.chunkText());
 
                 embeddedChunks.add(document);
             }

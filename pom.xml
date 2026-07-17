@@ -4,18 +4,24 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.myorg.ars</groupId>
-    <artifactId>spring-rag-engine</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.0</version>
     </parent>
 
+    <groupId>com.myorg.ars</groupId>
+    <artifactId>spring-rag-engine</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+
     <properties>
         <java.version>21</java.version>
+        <postgresql.version>42.7.3</postgresql.version>
+        <apache.version>21</apache.version>
+        <pdf.parser.version>3.0.7</pdf.parser.version>
+        <spring.ai.version>1.1.4</spring.ai.version>
+
     </properties>
 
     <dependencies>
@@ -30,7 +36,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.36</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,20 +45,30 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
         <!-- Source: https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>3.0.7</version>
+            <version>${pdf.parser.version}</version>
             <scope>compile</scope>
         </dependency>
 
-
+        <!-- Ai related dependencies -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-ollama</artifactId>
         </dependency>
-
 
     </dependencies>
 
@@ -60,22 +77,39 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-bom</artifactId>
-            <version>1.1.4</version>
+            <version>${spring.ai.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
 </dependencyManagement>
 
-    <build>
-        <plugins>
-            <!-- Spring Boot plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
 
-        </plugins>
-    </build>
+    <build>
+        <sourceDirectory>backend/src/main/java</sourceDirectory>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.36</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <mainClass>com.myorg.ars.SpringRagEngine</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
