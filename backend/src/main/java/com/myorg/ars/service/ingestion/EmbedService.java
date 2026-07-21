@@ -1,7 +1,7 @@
 package com.myorg.ars.service.ingestion;
 
 
-import com.myorg.ars.data.repository.jpa.EmbeddingChunkRepositoryImpl;
+import com.myorg.ars.data.repository.EmbeddingChunkRepositoryImpl;
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.EmbeddedChunk;
 import lombok.RequiredArgsConstructor;
