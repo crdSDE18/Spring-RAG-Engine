@@ -1,7 +1,8 @@
 package com.myorg.ars.service.ingestion;
 
 import com.myorg.ars.data.entity.EmbeddedChunkEntity;
-import com.myorg.ars.data.repository.jpa.EmbeddingChunkRepositoryImpl;
+import com.myorg.ars.data.repository.EmbeddingChunkRepository;
+import com.myorg.ars.data.repository.EmbeddingChunkRepositoryImpl;
 import com.myorg.ars.service.strategy.model.DocumentChunk;
 import com.myorg.ars.service.strategy.model.DocumentRequest;
 import com.myorg.ars.service.strategy.model.EmbeddedChunk;
@@ -20,9 +21,8 @@ import java.util.stream.Collectors;
 public class DocumentOrchestrator {
     private final List<ParserStrategy> parserStrategies;
     private final RagChunkService chunkService;
-
     private final EmbedService embedService;
-    private final EmbeddingChunkRepositoryImpl embeddingChunkRepository;
+    private final EmbeddingChunkRepository embeddingChunkRepository;
 
 
     public void processDocument(DocumentRequest documentRequest){
@@ -41,8 +41,6 @@ public class DocumentOrchestrator {
 
         embeddingChunkRepository.saveAll(embeddedChunks);
         log.info("successfully logged embedded chunks with job id: {}", embeddedChunks.get(0).jobId());
-
-
 
     }
 

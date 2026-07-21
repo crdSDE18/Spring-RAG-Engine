@@ -1,8 +1,9 @@
-package com.myorg.ars.data.repository.jpa;
+package com.myorg.ars.data.repository;
 
 import com.myorg.ars.data.entity.EmbeddedChunkEntity;
 import com.myorg.ars.data.mapper.EmbeddingChunkMapper;
 import com.myorg.ars.data.repository.EmbeddingChunkRepository;
+import com.myorg.ars.data.repository.jpa.JpaEmbeddingChunkRepository;
 import com.myorg.ars.service.strategy.model.EmbeddedChunk;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
