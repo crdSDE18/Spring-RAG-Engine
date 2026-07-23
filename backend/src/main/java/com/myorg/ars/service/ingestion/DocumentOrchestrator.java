@@ -1,26 +1,23 @@
 package com.myorg.ars.service.ingestion;
 
-import com.myorg.ars.data.entity.EmbeddedChunkEntity;
-import com.myorg.ars.data.repository.EmbeddingChunkRepository;
-import com.myorg.ars.data.repository.EmbeddingChunkRepositoryImpl;
-import com.myorg.ars.service.strategy.model.DocumentChunk;
-import com.myorg.ars.service.strategy.model.DocumentRequest;
-import com.myorg.ars.service.strategy.model.EmbeddedChunk;
+import com.myorg.ars.data.repository.embedding.EmbeddingChunkRepository;
+import com.myorg.ars.service.model.DocumentChunk;
+import com.myorg.ars.service.model.DocumentRequest;
+import com.myorg.ars.service.model.EmbeddedChunk;
 import com.myorg.ars.service.strategy.parser.ParserStrategy;
-import com.myorg.ars.service.strategy.model.ParsedDocument;
+import com.myorg.ars.service.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class DocumentOrchestrator {
     private final List<ParserStrategy> parserStrategies;
-    private final RagChunkService chunkService;
+    private final ChunkService chunkService;
     private final EmbedService embedService;
     private final EmbeddingChunkRepository embeddingChunkRepository;
 
@@ -53,10 +50,4 @@ public class DocumentOrchestrator {
 
     }
 
-    private List<EmbeddedChunkEntity> convert(List<EmbeddedChunk> embeddedChunks){
-        return embeddedChunks.stream().map(eb ->
-                EmbeddedChunkEntity.builder().jobId(eb.jobId()).chunk_text(eb.chunkText()).embedding(eb.vector()).
-                        metadata(eb.metadata().toString()).build())
-                .collect(Collectors.toList());
-    }
 }

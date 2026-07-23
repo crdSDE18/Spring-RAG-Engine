@@ -1,6 +1,6 @@
-package com.myorg.ars.data.repository;
+package com.myorg.ars.data.repository.embedding;
 
-import com.myorg.ars.service.strategy.model.EmbeddedChunk;
+import com.myorg.ars.service.model.EmbeddedChunk;
 
 import java.util.List;
 

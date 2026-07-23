@@ -1,4 +1,4 @@
-package com.myorg.ars.service.strategy.model;
+package com.myorg.ars.service.model;
 
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 
