@@ -30,4 +30,6 @@ public class EmbeddedChunkEntity {
     @Column(name="metadata")
     private String metadata;
 
+    //TODO createdAt
+
 }

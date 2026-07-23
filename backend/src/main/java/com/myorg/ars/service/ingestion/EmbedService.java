@@ -1,9 +1,9 @@
 package com.myorg.ars.service.ingestion;
 
 
-import com.myorg.ars.data.repository.EmbeddingChunkRepositoryImpl;
-import com.myorg.ars.service.strategy.model.DocumentChunk;
-import com.myorg.ars.service.strategy.model.EmbeddedChunk;
+import com.myorg.ars.data.repository.embedding.EmbeddingChunkRepositoryImpl;
+import com.myorg.ars.service.model.DocumentChunk;
+import com.myorg.ars.service.model.EmbeddedChunk;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.embedding.EmbeddingModel;
@@ -19,8 +19,6 @@ import java.util.List;
 public class EmbedService {
 
     private final EmbeddingModel embeddingModel;
-
-    private final EmbeddingChunkRepositoryImpl embeddingChunkimplRepository;
 
     public List<EmbeddedChunk> embedDocument(List<DocumentChunk> documentChunks){
         Assert.notNull(documentChunks,"Chunk documents cannot be null");
