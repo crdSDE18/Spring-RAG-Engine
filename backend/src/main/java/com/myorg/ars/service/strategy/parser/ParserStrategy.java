@@ -1,7 +1,7 @@
 package com.myorg.ars.service.strategy.parser;
 
-import com.myorg.ars.service.strategy.model.DocumentRequest;
-import com.myorg.ars.service.strategy.model.ParsedDocument;
+import com.myorg.ars.service.model.DocumentRequest;
+import com.myorg.ars.service.model.ParsedDocument;
 
 public interface ParserStrategy {
     /**
