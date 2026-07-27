@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -22,13 +23,13 @@ public class DocumentOrchestrator {
     private final EmbeddingChunkRepository embeddingChunkRepository;
 
 
-    public void processDocument(DocumentRequest documentRequest){
+    public void processDocument(DocumentRequest request) {
 
         //Step 1: decide the parser
-        ParserStrategy parserStrategy = parserDecider(documentRequest.doc().getContentType());
+        ParserStrategy parserStrategy = parserDecider(request.metadata().mimetype());
 
         //Step 2: Parse the document
-        ParsedDocument parsedDocument = parserStrategy.parse(documentRequest);
+        ParsedDocument parsedDocument = parserStrategy.parse(request);
 
         //Step 3: Chunk document string to smaller chunks to be embedded
         List<DocumentChunk> documentChunks = chunkService.chunk(parsedDocument);
@@ -36,9 +37,9 @@ public class DocumentOrchestrator {
         //Step 4: Embed chunked documents
         List<EmbeddedChunk> embeddedChunks = embedService.embedDocument(documentChunks);
 
+        //Step 5: Save Embeddings
         embeddingChunkRepository.saveAll(embeddedChunks);
         log.info("successfully logged embedded chunks with job id: {}", embeddedChunks.get(0).jobId());
-
     }
 
     private ParserStrategy parserDecider(String mimeType){

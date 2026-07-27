@@ -3,6 +3,7 @@ package com.myorg.ars.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -17,6 +18,9 @@ public class EmbeddedChunkEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
 
     @Column(name="job_id", nullable = false)
     private String jobId;
