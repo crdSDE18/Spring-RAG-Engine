@@ -6,5 +6,5 @@ import com.myorg.ars.service.model.job.Job;
 public interface JobRepository {
 
     void save(Job job);
-//    Optional<JobEntity> findById(UUID jobId);
+
 }

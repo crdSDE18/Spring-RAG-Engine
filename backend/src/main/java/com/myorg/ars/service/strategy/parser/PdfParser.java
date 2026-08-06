@@ -1,7 +1,7 @@
 package com.myorg.ars.service.strategy.parser;
 
-import com.myorg.ars.service.strategy.model.DocumentRequest;
-import com.myorg.ars.service.strategy.model.ParsedDocument;
+import com.myorg.ars.service.model.DocumentRequest;
+import com.myorg.ars.service.model.ParsedDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.Loader;
@@ -10,6 +10,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,31 +29,24 @@ public class PdfParser implements ParserStrategy {
     @Override
     public ParsedDocument parse(DocumentRequest documentRequest) {
 
-        //TODO revist resource management here
-        try{
-            PDDocument pdDocument = Loader.loadPDF(documentRequest.doc().getBytes());
+        try (InputStream input = documentRequest.content()){
+            PDDocument pdDocument = Loader.loadPDF(input.readAllBytes());
+
 
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
+            String parsedText = pdfTextStripper.getText(pdDocument);
 
-            Map<String, Object> metadata = new HashMap<>();
-            metadata.put("article start", pdfTextStripper.getArticleStart());
-            metadata.put("article end" , pdfTextStripper.getArticleEnd());
-            metadata.put("page start", pdfTextStripper.getPageStart());
-            metadata.put("page end" , pdfTextStripper.getEndPage());
-            metadata.put("doc Id", documentRequest.jobID());
-            metadata.put("file name" , documentRequest.doc().getOriginalFilename());
-
-            log.info("METADATA: {}", metadata);
-
-
-            ParsedDocument parsedDocument = new ParsedDocument(documentRequest.jobID().toString(),
-                    pdfTextStripper.getText(pdDocument),metadata);
+            ParsedDocument parsedDocument =
+                    new ParsedDocument(String.valueOf(documentRequest.jobId()), parsedText,documentRequest.metadata());
 
             log.info("parsed document: {}", parsedDocument);
             return parsedDocument;
 
-        } catch (IOException e) {
+
+        } catch (Exception e) {
+            log.error("Error while parsing pdf file",e);
             throw new RuntimeException(e);
         }
+
     }
 }

@@ -1,7 +1,7 @@
 package com.myorg.ars.data.mapper;
 
 import com.myorg.ars.data.entity.EmbeddedChunkEntity;
-import com.myorg.ars.service.strategy.model.EmbeddedChunk;
+import com.myorg.ars.service.model.EmbeddedChunk;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

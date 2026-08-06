@@ -22,8 +22,7 @@ spring:
 
 rag:
   chunking-config:
-    size: 600
-    overlap: 50
-    keepSeparator: true
-    minChunkSize: 10
-    maxNumChunks: 100
+    chunk-size: 200
+    keep-separator: true
+    min-chunk-size: 20
+    max-num-chunk-size: 25
