@@ -4,13 +4,11 @@ import com.myorg.ars.service.ingestion.DocumentOrchestrator;
 import com.myorg.ars.service.ingestion.JobService;
 import com.myorg.ars.service.model.DocumentMetadata;
 import com.myorg.ars.service.model.DocumentRequest;
-import com.myorg.ars.service.model.job.Job;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,7 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class RAGController {
+public class DocumentController {
 
     private final DocumentOrchestrator orchestrator;
     private final JobService service;
@@ -39,6 +37,7 @@ public class RAGController {
         InputStream inputStream;
         try {
            inputStream = doc.getInputStream();
+           log.debug("ingested input stream type: {}", inputStream.getClass().getSimpleName());
         }
         catch (IOException e){
             log.error("Failed while reading input stream", e);
@@ -66,7 +65,8 @@ public class RAGController {
 
         }
         //TODO implement further endpoints, as this will eventually be async processing
-        return ResponseEntity.status(HttpStatus.CREATED).header("X-JOB-ID", jobId.toString())
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .header("X-JOB-ID", jobId.toString())
                 .body("File Successfully saved with job-id in header");
     }
 
