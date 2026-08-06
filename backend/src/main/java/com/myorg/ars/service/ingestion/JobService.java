@@ -1,10 +1,8 @@
 package com.myorg.ars.service.ingestion;
 
-import com.myorg.ars.data.entity.JobEntity;
+
 import com.myorg.ars.data.repository.job.JobRepository;
-import com.myorg.ars.exception.JobNotFoundException;
 import com.myorg.ars.service.model.job.Job;
-import com.myorg.ars.service.model.job.JobStatus;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +20,10 @@ public class JobService {
 
     //TODO retry logic
     @Transactional
-    public Job createJob(UUID jobId){
-        Job job = Job.create(jobId);
+    public UUID createJob() {
+        Job job = Job.create();
         jobRepository.save(job);
-
-        return job;
+        log.info("successfully saved job with job id: {} ", job.jobId());
+        return job.jobId();
     }
-
-
 }
